@@ -4,15 +4,24 @@
 
 <template>
   <h2>Asset window</h2>
-  <AssetListItem
-    v-for="(asset, index) in project.assets"
-    :key="index"
-    :asset="asset"
-    :selected="store.selectedAsset?.id === asset.id"
-    @select-asset="store.changeSelectedAsset(asset)"
-  />
-  <FileButton @add-asset="store.addAsset" />
-  <el-button @click="store.deleteSelectedAsset" :disabled="store.selectedAsset?.id === undefined">Delete</el-button>
+  <div class="assets-list">
+    <el-scrollbar>
+      <AssetListItem
+        v-for="(asset, index) in project.assets"
+        :key="index"
+        :asset="asset"
+        :selected="store.selectedAsset?.id === asset.id"
+        @select-asset="store.changeSelectedAsset(asset)"
+      />
+    </el-scrollbar>
+  </div>
+  <div class="assets-button">
+    <FileButton @add-asset="store.addAsset" />
+    <el-button :icon="Delete" @click="store.deleteSelectedAsset" :disabled="store.selectedAsset?.id === undefined"
+      >Delete</el-button
+    >
+  </div>
+
   <!-- <div class="selected-asset">
     <h2>SelectedAsset</h2>
     <p>{{ store.selectedAsset?.name }}</p>
@@ -20,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { Asset } from '../../models'
+import { Delete } from '@element-plus/icons-vue'
 
 // pinia的基本使用，从store中解构出project
 import { useStore } from '../../store/project'
@@ -33,4 +42,11 @@ const { project } = storeToRefs(store)
 // const selected = ref<Asset | null>()
 </script>
 
-<style scoped></style>
+<style scoped>
+.assets-list {
+  height: 45vh;
+}
+.assets-button {
+  float: right;
+}
+</style>

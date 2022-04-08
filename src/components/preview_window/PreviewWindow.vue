@@ -4,11 +4,12 @@
     <!-- 该div是为Gizom设计，为了隐藏视图溢出的部分(待商榷) -->
     <div class="canvas" :style="canvasContainerStyle">
       <!-- render-canvas即为捕获窗口 -->
+      <!-- canvas被renderer挂载后就变成纯黑画布了 -->
       <canvas ref="renderCanvas" class="render-canvas" />
-      <!-- gizmo为selectedStrip的区域在整块屏幕的显示，css样式随移动动态变化 -->
-      <!-- 可以把Gizmo看做渲染的strip的盒子，没有这个盒子，渲染的strip将无法移动 -->
+      <!-- box为selectedStrip的区域在整块屏幕的显示，css样式随移动动态变化 -->
+      <!-- 可以把box看做渲染的strip的盒子，没有这个盒子，渲染的strip将无法移动 -->
       <!-- 只有这个盒子，不去渲染strip，显然便只能看到空盒子 -->
-      <!-- 注意由于gizmo的外层盒子是canvas窗口，所以最多显示该窗口区域大小的画面（又像是renderer size的原因） -->
+      <!-- 注意由于box的外层盒子是canvas窗口，所以最多显示该窗口区域大小的画面（又像是renderer size的原因） -->
       <RenderItemBox
         ref="renderItemBoxComp"
         :strip="store.selectedStrip"
@@ -17,6 +18,8 @@
         :scale="scale"
       />
     </div>
+
+    <div class="time-show">{{ timeFormat }}</div>
   </div>
 </template>
 
@@ -56,6 +59,19 @@ const canvasContainerStyle = computed(() => {
     left: left.value + 'px'
   }
 })
+const timeFormat = computed(() => {
+  let s = store.currentTime
+  if (s < 0) {
+    s = -s
+  }
+  const sec = s.toFixed(4)
+  const ms = sec.substr(sec.length - 4, 4)
+  const hhmmss = new Date(s * 1000).toISOString().substr(11, 8)
+
+  let sign = ''
+  if (store.currentTime < 0) sign = '-'
+  return `${sign}${hhmmss}.${ms}`
+})
 
 // const previewScale = ref(1)
 const wheelScale: number = 0.0001
@@ -79,7 +95,7 @@ watch(
   }
 )
 
-// 鼠标滚轮等比例放大或缩小canvas窗口和strip的gizmo审视区域
+// 鼠标滚轮等比例放大或缩小canvas窗口和strip的box审视区域
 const onWheel = (e: WheelEvent) => {
   top.value += e.deltaY * project.value.height * scale.value * wheelScale
   left.value += e.deltaY * project.value.width * scale.value * wheelScale
@@ -134,7 +150,6 @@ defineExpose({
   position: relative;
   margin: 0 30px;
   background-color: rgb(24, 22, 22);
-  display: flex;
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;
@@ -149,6 +164,11 @@ defineExpose({
   width: 100%;
   height: 100%;
   transform-origin: left top;
-  /* background-color: rgb(24, 22, 22); */
+}
+.time-show {
+  color: white;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
 }
 </style>

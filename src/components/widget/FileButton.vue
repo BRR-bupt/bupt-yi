@@ -1,6 +1,6 @@
 <template>
-  <el-button @click="input?.click()">
-    Add Asset
+  <el-button :icon="Upload" @click="input?.click()">
+    Upload
     <input type="file" ref="input" style="display: none" @change="change" />
   </el-button>
 </template>
@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { ProjError } from '../../plugins/error'
+import { Upload } from '@element-plus/icons-vue'
 const input = ref<HTMLElement | null>(null)
 
 const emit = defineEmits<{
