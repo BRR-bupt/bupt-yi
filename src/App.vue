@@ -2,13 +2,13 @@
   <AppBar @open-renderer="rendererDialog = true" />
   <div class="main">
     <el-row>
-      <el-col :span="6" class="asset-window">
+      <el-col :span="5" class="asset-window">
         <AssetWindow />
       </el-col>
       <el-col :span="14" class="preview-window">
         <PreviewWindow ref="previewWindow" />
       </el-col>
-      <el-col :span="4" class="strip-inspect">
+      <el-col :span="5" class="strip-inspect">
         <StripInspectWindow />
       </el-col>
     </el-row>
@@ -107,7 +107,6 @@ const update = (time: number = 0) => {
 .strip-inspect {
   box-sizing: border-box;
   height: 60vh;
-  overflow-y: scroll;
   overflow-x: hidden;
 }
 .timeline-panel {

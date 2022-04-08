@@ -16,9 +16,12 @@ const getStyle = computed((): StyleValue => {
   if (props.selected)
     return {
       // backgroundColor: 'yellow',
-      color: 'green'
+      color: 'green',
+      cursor: 'pointer'
     }
-  return {}
+  return {
+    cursor: 'pointer'
+  }
 })
 
 const emit = defineEmits<{

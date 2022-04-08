@@ -5,13 +5,13 @@
       <Select :items="getSelectItems" :id="currentAssetId" @change="changeAsset" />
     </el-form-item>
     <el-form-item label="Start">
-      <el-input-number v-model="strip.start" />
+      <el-input-number :precision="3" v-model="strip.start" />
     </el-form-item>
     <el-form-item label="Offset">
-      <el-input-number v-model="strip.videoOffset" />
+      <el-input-number :precision="3" v-model="strip.videoOffset" />
     </el-form-item>
     <el-form-item label="Length">
-      <el-input-number v-model="strip.length" />
+      <el-input-number :precision="3" v-model="strip.length" />
     </el-form-item>
     <el-form-item label="Pos-X">
       <el-input-number v-model="strip.position.x" />

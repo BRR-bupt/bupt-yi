@@ -1,12 +1,13 @@
 <template>
   <!-- 自selectedStrip创建之时，便于strip实现了同步更新，详见project.ts的changeSelectedStrip() -->
-
-  <component
-    :is="getStripComps"
-    v-if="store.selectedStrip"
-    :strip="store.selectedStrip"
-    :assets="store.project.assets"
-  />
+  <el-scrollbar>
+    <component
+      :is="getStripComps"
+      v-if="store.selectedStrip"
+      :strip="store.selectedStrip"
+      :assets="store.project.assets"
+    />
+  </el-scrollbar>
 </template>
 
 <script setup lang="ts">

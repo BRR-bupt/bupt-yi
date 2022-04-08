@@ -1,12 +1,12 @@
 <template>
   <div style="margin-top: 1px"></div>
-  <div v-for="(_, i) in [...Array(8)]" :ref="setLayers" :key="i" @contextmenu="openMenu" @click="closeMenu">
+  <div v-for="(_, i) in [...Array(8)]" :ref="setLayers" :key="i" @contextmenu="openMenu1" @click="closeMenu">
     <!-- 八条资产轴 -->
     <div class="line"></div>
     <div class="linehr"></div>
   </div>
 
-  <div class="strips">
+  <div class="strips" @contextmenu="openMenu2">
     <TimelineStrip
       v-for="(strip, j) in store.showStrips"
       :key="j"
@@ -45,12 +45,19 @@ onBeforeUpdate(() => {
 
 // 右键菜单处理函数
 const RefContextMenu = ref()
-const openMenu = (e: MouseEvent) => {
+const openMenu1 = (e: MouseEvent) => {
   e.preventDefault()
-  RefContextMenu.value.open(e)
+  RefContextMenu.value.openHandle = false
+  RefContextMenu.value.open1(e)
+}
+const openMenu2 = (e: MouseEvent) => {
+  e.preventDefault()
+  RefContextMenu.value.openItem = false
+  RefContextMenu.value.open2(e)
 }
 const closeMenu = () => {
-  RefContextMenu.value.isOpen = false
+  RefContextMenu.value.openHandle = false
+  RefContextMenu.value.openItem = false
 }
 </script>
 
