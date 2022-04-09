@@ -198,7 +198,7 @@ export class VideoStrip extends Strip {
         clearTimeout(timeout)
         resolve(true)
       }
-      this.video.currentTime = time + this.videoOffset
+      this.video.currentTime = time
     })
   }
 }
