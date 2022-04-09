@@ -76,7 +76,6 @@ const style = computed((): StyleValue => {
       top = py * props.scale - height / 2
       left = px * props.scale - width / 2
     }
-
     return {
       top: top - 1 + 'px',
       left: left - 1 + 'px',

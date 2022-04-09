@@ -184,6 +184,7 @@ export class TextStrip extends Strip implements ITextStrip {
     document.body.append(span)
     const r = span.getBoundingClientRect()
     this.canvas.height = r.height
+    console.log(this.canvas.height)
 
     span.remove()
   }
@@ -196,6 +197,7 @@ export class TextStrip extends Strip implements ITextStrip {
     this.ctx.font = `${this.fontFamily} ${this.fontSize}px '${this.fontFamily}'`
     const metrics = this.ctx.measureText(this.text)
     this.canvas.width = metrics.width
+    this.canvas.height = metrics.fontBoundingBoxAscent
 
     this.obj.scale.set(this.canvas.width, this.canvas.height, 1)
 
@@ -255,6 +257,10 @@ export class TextStrip extends Strip implements ITextStrip {
    * @returns void
    */
   public async update(time: number, _delta: number, _isPlay: boolean, _playMode: PlayMode, _fps: number) {
+    // this.ctx.font = `${this.fontFamily} ${this.fontSize}px '${this.fontFamily}'`
+    // const metrics = this.ctx.measureText(this.text)
+    // this.canvas.width = metrics.width
+    // this.canvas.height = metrics.fontBoundingBoxAscent
     this.obj.position.set(this.position.x, this.position.y, this.position.z)
     this.obj.position.setZ(this.layer)
 

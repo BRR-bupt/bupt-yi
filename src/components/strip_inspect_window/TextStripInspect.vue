@@ -23,7 +23,7 @@
       <el-input v-model="strip.fontStyle" />
     </el-form-item>
     <el-form-item label="Size">
-      <el-input-number v-model="strip.fontSize" />
+      <el-input-number :step="5" v-model="strip.fontSize" />
     </el-form-item>
     <el-form-item label="color">
       <el-input v-model="strip.color" />
