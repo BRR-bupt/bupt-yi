@@ -1,10 +1,10 @@
 <template>
-  <div class="strip-menu" v-if="openItem" :style="GetMenuStyle">
+  <div class="menu" v-if="openItem" :style="GetMenuStyle">
     <div v-for="(item, i) in items" :key="i">
       <el-button type="text" size="small" @click="e => handleAction(e, item)">{{ item.text }}</el-button>
     </div>
   </div>
-  <div class="handle-menu" v-if="openHandle" :style="GetMenuStyle">
+  <div class="menu" v-if="openHandle" :style="GetMenuStyle">
     <div v-for="(item, i) in handles" :key="i">
       <el-button type="text" size="small" @click="e => handleAction(e, item)">{{ item.text }}</el-button>
     </div>
@@ -78,12 +78,10 @@ const handleAction = (e: Event, item: ContextMenuItem) => {
 </script>
 
 <style scoped>
-.strip-menu {
+.menu {
+  padding: 5px;
   position: fixed;
-  background-color: #c8e0d9;
-}
-.handle-menu {
-  position: fixed;
-  background-color: #c8e0d9;
+  background-color: rgb(36 36 40);
+  border-radius: 10px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <!-- <el-button :icon="VideoPlay" size="default" circle v-if="!store.isPlay" @click="store.isPlay = !store.isPlay" />
   <el-button :icon="VideoPause" size="default" circle v-else @click="store.isPlay = !store.isPlay" />-->
-  <div style="cursor: pointer">
+  <div style="cursor: pointer; margin-left: 49vw">
     <el-icon :size="26" v-if="!store.isPlay" @click="store.isPlay = !store.isPlay"><video-play /></el-icon>
     <el-icon :size="26" v-else @click="store.isPlay = !store.isPlay"><video-pause /></el-icon>
   </div>

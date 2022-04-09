@@ -30,9 +30,11 @@ const downScale = () => {
   /* margin-left: 5vw; */
 }
 .strip-container {
+  height: 50vh;
   position: relative;
   overflow-x: hidden;
-  height: calc(100% - 20px);
+  /* height: calc(100% - 20px); */
+  background-color: rgb(44 45 54);
 }
 .timeline-container {
   -webkit-user-select: none;

@@ -6,8 +6,9 @@
     :before-close="beforeClose"
     :close-on-click-modal="false"
     :show-close="false"
+    :lock-scroll="false"
   >
-    <el-scrollbar height="350px">
+    <el-scrollbar height="410px">
       <!-- <canvas ref="renderCanvas1" style="width: 400px; height: 225px; background-color: black"></canvas> -->
       <!-- <button @click="guazai">click</button> -->
       <!-- 渲染预览窗口 -->
@@ -38,7 +39,9 @@
       <span class="dialog-footer">
         <el-button v-if="!isEncoding" @click="emit('update:dialogVisible', false)">Back</el-button>
         <el-button v-else @click="cancel">Cancel</el-button>
-        <el-button v-if="!isEncoding" type="primary" :disabled="false" @click="startEncode"> Start </el-button>
+        <el-button v-if="!isEncoding" type="primary" :disabled="!isSupportBrowser()" @click="startEncode">
+          Start
+        </el-button>
         <el-button v-else type="primary" @click="downloader">Download</el-button>
       </span>
     </template>

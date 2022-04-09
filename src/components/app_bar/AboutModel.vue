@@ -1,8 +1,15 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="About" width="20%" :show-close="false" :before-close="beforeClose">
-    <p>NAME : {{ _NAME_ }}</p>
-    <p>VERSION : {{ _VERSION_ }}</p>
-    <p>AUTHOR : {{ _AUTHOR_ }}</p>
+  <el-dialog
+    :lock-scroll="false"
+    v-model="dialogVisible"
+    title="About"
+    width="20%"
+    :show-close="false"
+    :before-close="beforeClose"
+  >
+    <h2>NAME : {{ _NAME_ }}</h2>
+    <h2>VERSION : {{ _VERSION_ }}</h2>
+    <h2>AUTHOR : {{ _AUTHOR_ }}</h2>
     <template #footer>
       <span class="dialog-footer">
         <!-- <el-button @click="dialogVisible = false">Cancel</el-button> -->

@@ -5,6 +5,7 @@
     width="20%"
     :show-close="false"
     :before-close="beforeClose"
+    :lock-scroll="false"
   >
     <el-form label-width="120px" size="default">
       <el-form-item label="Project Name">

@@ -104,7 +104,7 @@ defineExpose({
 <style scoped>
 .seekline {
   height: 20px;
-  background-color: #f9f9f9;
+  background-color: #2a2b31;
   cursor: pointer;
   width: 100%;
 }

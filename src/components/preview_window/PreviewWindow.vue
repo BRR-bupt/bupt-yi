@@ -149,7 +149,7 @@ defineExpose({
 .preview-canvas {
   position: relative;
   margin: 0 30px;
-  background-color: rgb(24, 22, 22);
+  /* background-color: rgb(24, 22, 22); */
   box-sizing: border-box;
   height: 100%;
   overflow: hidden;

@@ -1,11 +1,13 @@
 <template>
-  <AppBar @open-renderer="rendererDialog = true" />
+  <div class="app-bar">
+    <AppBar @open-renderer="rendererDialog = true" />
+  </div>
   <div class="main">
     <el-row>
       <el-col :span="5" class="asset-window">
         <AssetWindow />
       </el-col>
-      <el-col :span="14" class="preview-window">
+      <el-col :span="13" class="preview-window">
         <PreviewWindow ref="previewWindow" />
       </el-col>
       <el-col :span="5" class="strip-inspect">
@@ -89,10 +91,20 @@ const update = (time: number = 0) => {
 </script>
 
 <style scoped>
+.app-bar {
+  display: flex;
+  height: 5vh;
+  background-color: rgb(28 29 32);
+}
 .main {
   height: 60vh;
 }
 .asset-window {
+  background-color: rgb(49 50 58);
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+  margin-left: 20px;
+  margin-top: 10px;
   overflow-x: hidden;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -103,14 +115,20 @@ const update = (time: number = 0) => {
 .preview-window {
   height: 60vh;
   overflow: hidden;
+  margin-left: 10px;
 }
 .strip-inspect {
+  background-color: rgb(49 50 58);
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+  margin-left: 20px;
+  margin-top: 10px;
   box-sizing: border-box;
   height: 60vh;
   overflow-x: hidden;
 }
 .timeline-panel {
-  height: 35vh;
+  /* height: 50vh; */
   overflow-y: hidden;
 }
 </style>
