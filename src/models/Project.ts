@@ -26,7 +26,7 @@ export class Project implements IProject {
   assets: Asset[]
   strips: Strip[]
   constructor(i: IProject) {
-    i = migrationProject(i)
+    // i = migrationProject(i)
     this.version = i.version
     this.name = i.name
     this.width = i.width

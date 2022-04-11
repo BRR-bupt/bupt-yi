@@ -106,6 +106,7 @@ export class ImageStrip extends Strip {
 
   // 将asset添加到strip中
   updateAsset(imageAsset: ImageAsset) {
+    console.log('me')
     // 在strip模板中添加tex对象
     this.tex?.dispose()
     // 添加asset

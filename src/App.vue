@@ -65,8 +65,6 @@ const update = (time: number = 0) => {
     return
   }
 
-  previewWindow.value?.start()
-
   let delta = time - lastAnimationTime.value
   lastAnimationTime.value = time
 
@@ -83,7 +81,6 @@ const update = (time: number = 0) => {
   camera.updateProjectionMatrix()
   previewWindow.value?.resize()
 
-  previewWindow.value?.end()
   lastUpdate.value = time
   // 该windowAPI实现了计时功能，且循环这段upadte代码
   window.requestAnimationFrame(update)

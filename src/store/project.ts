@@ -11,13 +11,15 @@ import {
   ImageStrip,
   ImageAsset
 } from '../models'
-import { Project } from '../models/Project'
+import { Project, isProject } from '../models/Project'
 import { v4 } from 'uuid'
 import { ProjError } from '../plugins/error'
 import { StripUtil } from '../plugins/strip'
 import { SYNC_TO_AUDIO } from '../plugins/config'
 import { roundToFrame } from '../plugins/utils/roundToFrame'
 import * as T from 'three'
+import { download } from '@/plugins/download'
+// import { ElNotification } from 'element-plus'
 
 export const useStore = defineStore('project', {
   state: () => ({
@@ -60,7 +62,41 @@ export const useStore = defineStore('project', {
     }
   },
   actions: {
-    // Asset 的三大函数
+    downloadProject() {
+      download(new Blob([JSON.stringify(this.project.toJSON())]), this.project.name + '.json')
+    },
+    async openProject(e: Event) {
+      const target = e.target as HTMLInputElement
+      if (target.files && target.files.length == 1) {
+        try {
+          const file = target.files[0]
+          const text = await file.text()
+          const iproject = JSON.parse(text)
+          if (isProject(iproject)) {
+            this.project = new Project(iproject)
+            console.log('222')
+
+            ElNotification({
+              title: 'Success',
+              message: 'This is a success message',
+              type: 'success',
+              position: 'top-left'
+            })
+          } else {
+            throw new ProjError('Invalid Project file.')
+          }
+        } catch {
+          throw new ProjError('Project file is not JSON format.')
+        }
+      }
+      this.project.strips.forEach(s => {
+        if (StripUtil.isThreeJsStrip(s)) {
+          this.scene?.add(s.obj)
+        }
+      })
+    },
+
+    // Asset 的五大函数
     changeSelectedAsset(asset: Asset) {
       this.selectedAsset = asset
     },
@@ -87,6 +123,58 @@ export const useStore = defineStore('project', {
       } else {
         throw new ProjError('Unsupported file type' + file.type)
       }
+    },
+    updateAsset(e: Event) {
+      console.log('updateAsset')
+      const target = e.target as HTMLInputElement
+      if (target.files && target.files.length == 1) {
+        const file = target.files[0]
+        const path = window.URL.createObjectURL(file)
+        if (this.selectedAsset instanceof VideoAsset) {
+          if (!VideoAsset.isSupportType(file.type)) {
+            throw new ProjError(`Invalid file type ${file.type} to Video.`)
+          }
+          const newAsset = new VideoAsset(this.selectedAsset.id, file.name, path)
+          this.updateAssetInProject(newAsset)
+        } else if (this.selectedAsset instanceof ImageAsset) {
+          if (!ImageAsset.isSupportType(file.type)) {
+            throw new ProjError(`Invalid file type ${file.type} to Image.`)
+          }
+          const newAsset = new ImageAsset(this.selectedAsset.id, file.name, path)
+          this.updateAssetInProject(newAsset)
+        } else if (this.selectedAsset instanceof AudioAsset) {
+          if (!AudioAsset.isSupportType(file.type)) {
+            throw new ProjError(`Invalid file type ${file.type} to Audio.`)
+          }
+          const newAsset = new AudioAsset(this.selectedAsset.id, file.name, path)
+          this.updateAssetInProject(newAsset)
+        } else {
+          throw new ProjError('Sorry under implementation.')
+        }
+      }
+    },
+    updateAssetInProject(newAsset: Asset) {
+      console.log('me')
+      const i = this.project.assets.findIndex(a => a == this.selectedAsset)
+      const oldAsset = this.project.assets[i]
+      this.project.assets.splice(i, 1, newAsset)
+      // 不应该对所有的同类strip都进行updateAsset，有bug
+      this.project.strips.forEach(s => {
+        if (s instanceof VideoStrip && newAsset instanceof VideoAsset) {
+          if (s.videoAsset == oldAsset) {
+            s.updateAsset(newAsset)
+          }
+        } else if (s instanceof ImageStrip && newAsset instanceof ImageAsset) {
+          if (s.imageAsset === oldAsset) {
+            s.updateAsset(newAsset)
+          }
+        } else if (s instanceof AudioStrip && newAsset instanceof AudioAsset) {
+          if (s.asset === oldAsset) {
+            s.updateAsset(newAsset)
+          }
+        }
+      })
+      this.selectedAsset = newAsset
     },
 
     // 更新strip(对实现播放功能至关重要)

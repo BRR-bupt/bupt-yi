@@ -3,7 +3,7 @@
 <!-- 但是strip的资产选择操作并不在pinia中，考虑到不同strip具有不同类asset，难以复用 -->
 
 <template>
-  <h2>Asset window</h2>
+  <h2 @click="store.selectedAsset = null">Asset window</h2>
   <div class="assets-list">
     <el-scrollbar>
       <AssetListItem
@@ -16,20 +16,19 @@
     </el-scrollbar>
   </div>
   <div class="assets-button">
+    <input ref="refUpdateAsset" type="file" style="display: none" @change="(e: Event) => store.updateAsset(e)" />
+    <el-button :icon="UploadFilled" type="success" @click="refUpdateAsset?.click()" v-if="store.selectedAsset"
+      >Update</el-button
+    >
     <FileButton @add-asset="store.addAsset" />
     <el-button :icon="Delete" @click="store.deleteSelectedAsset" :disabled="store.selectedAsset?.id === undefined"
       >Delete</el-button
     >
   </div>
-
-  <!-- <div class="selected-asset">
-    <h2>SelectedAsset</h2>
-    <p>{{ store.selectedAsset?.name }}</p>
-  </div> -->
 </template>
 
 <script setup lang="ts">
-import { Delete } from '@element-plus/icons-vue'
+import { Delete, UploadFilled } from '@element-plus/icons-vue'
 
 // pinia的基本使用，从store中解构出project
 import { useStore } from '../../store/project'
@@ -38,6 +37,7 @@ import FileButton from '../widget/FileButton.vue'
 const store = useStore()
 const { project } = storeToRefs(store)
 
+const refUpdateAsset = ref<HTMLInputElement>()
 // 定义selected变量，完成被选中资产的css样式变化
 // const selected = ref<Asset | null>()
 </script>

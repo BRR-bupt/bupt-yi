@@ -1,5 +1,5 @@
 <template>
-  <div ref="preview" class="preview-canvas" @mousewheel="onWheel" @mousedown="down" @contextmenu="stop">
+  <div ref="preview" class="preview-canvas" @mousewheel="onWheel" @mousedown="down">
     <!-- class：canvas画布为该区域的窗口，截取视频 -->
     <!-- 该div是为Gizom设计，为了隐藏视图溢出的部分(待商榷) -->
     <div class="canvas" :style="canvasContainerStyle">
@@ -118,8 +118,6 @@ const down = (e: MouseEvent) => {
 
 const preview = ref<HTMLElement>()
 const prevRect = ref<DOMRect>()
-const start = () => {}
-const end = () => {}
 const renderPreview = (scene: T.Scene, camera: T.Camera) => {
   // console.log(scene)
   renderer.value?.render(scene, camera)
@@ -138,8 +136,6 @@ const renderPreview = (scene: T.Scene, camera: T.Camera) => {
 }
 defineExpose({
   renderCanvas,
-  start,
-  end,
   renderPreview,
   resize
 })

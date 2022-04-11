@@ -52,6 +52,7 @@ const currentAssetId = computed(() => {
 })
 
 const changeAsset = (val: OptionKeyValue | undefined) => {
+  console.log('65455')
   if (val) {
     const target = props.assets.find(item => item.id === val.value)
     if (!target || !(target instanceof ImageAsset)) return
