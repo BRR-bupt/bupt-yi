@@ -19,6 +19,7 @@ import { SYNC_TO_AUDIO } from '../plugins/config'
 import { roundToFrame } from '../plugins/utils/roundToFrame'
 import * as T from 'three'
 import { download } from '@/plugins/download'
+import { throwNotice } from '@/plugins/notice'
 // import { ElNotification } from 'element-plus'
 
 export const useStore = defineStore('project', {
@@ -76,17 +77,20 @@ export const useStore = defineStore('project', {
           if (isProject(iproject)) {
             this.project = new Project(iproject)
             this.isOpenProject = true
-            ElNotification({
-              title: 'Success',
-              message: '导入成功，请点击 Asset Window 中的资产进行更新',
-              type: 'success',
-              position: 'top-left'
-            })
+            throwNotice('success', '导入成功，请点击 Asset Window 中的资产进行更新')
+            // ElNotification({
+            //   title: 'Success',
+            //   message: '导入成功，请点击 Asset Window 中的资产进行更新',
+            //   type: 'success',
+            //   position: 'top-left'
+            // })
           } else {
-            throw new ProjError('Invalid Project file.')
+            // throw new ProjError('Invalid Project file.')
+            throw throwNotice('error', 'Invalid Project file')
           }
         } catch {
-          throw new ProjError('Project file is not JSON format.')
+          // throw new ProjError('Project file is not JSON format.')
+          throw throwNotice('error', 'Project file is not JSON format.')
         }
       }
       this.project.strips.forEach(s => {
@@ -121,7 +125,8 @@ export const useStore = defineStore('project', {
         const asset = new ImageAsset(v4(), file.name, src)
         this.project.assets.push(asset)
       } else {
-        throw new ProjError('Unsupported file type' + file.type)
+        // throw new ProjError('Unsupported file type' + file.type)
+        throw throwNotice('error', 'Unsupported file type' + file.type)
       }
     },
     updateAsset(e: Event) {
@@ -132,24 +137,28 @@ export const useStore = defineStore('project', {
         const path = window.URL.createObjectURL(file)
         if (this.selectedAsset instanceof VideoAsset) {
           if (!VideoAsset.isSupportType(file.type)) {
-            throw new ProjError(`Invalid file type ${file.type} to Video.`)
+            // throw new ProjError(`Invalid file type ${file.type} to Video.`)
+            throw throwNotice('error', `Invalid file type ${file.type} to Video.`)
           }
           const newAsset = new VideoAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else if (this.selectedAsset instanceof ImageAsset) {
           if (!ImageAsset.isSupportType(file.type)) {
-            throw new ProjError(`Invalid file type ${file.type} to Image.`)
+            // throw new ProjError(`Invalid file type ${file.type} to Image.`)
+            throw throwNotice('error', `Invalid file type ${file.type} to Image.`)
           }
           const newAsset = new ImageAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else if (this.selectedAsset instanceof AudioAsset) {
           if (!AudioAsset.isSupportType(file.type)) {
-            throw new ProjError(`Invalid file type ${file.type} to Audio.`)
+            // throw new ProjError(`Invalid file type ${file.type} to Audio.`)
+            throw throwNotice('error', `Invalid file type ${file.type} to Audio.`)
           }
           const newAsset = new AudioAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else {
-          throw new ProjError('Sorry under implementation.')
+          // throw new ProjError('Sorry under implementation.')
+          throw throwNotice('error', 'Sorry under implementation.')
         }
       }
     },
@@ -311,10 +320,10 @@ export const useStore = defineStore('project', {
       this.addStrip(newStrip)
     },
     split() {
-      if (!this.selectedStrip) throw new ProjError('Split operation target strip is not found.')
+      if (!this.selectedStrip) throw throwNotice('error', 'Split operation target strip is not found.')
       const target = this.selectedStrip
       const i = this.project.strips.findIndex(s => s == target)
-      if (i == -1) throw new ProjError('Split operation target strip is not found.')
+      if (i == -1) throw throwNotice('error', 'Split operation target strip is not found.')
       if (target instanceof VideoStrip) {
         const newStrip = new VideoStrip(
           {
@@ -335,7 +344,8 @@ export const useStore = defineStore('project', {
         this.changeLength(target, length)
         this.addStrip(newStrip)
       } else {
-        throw new ProjError(`Split operations are not supported in ${target.type}.`)
+        // throw new ProjError(`Split operations are not supported in ${target.type}.`)
+        throw throwNotice('error', `Split operations are not supported in ${target.type}.`)
       }
     },
 
