@@ -12,6 +12,7 @@ export type IAudioStrip = IStrip & {
   start?: number
   length?: number
   layer?: number
+  percent: number
   type?: string
   src: string
   readonly assetId: string
@@ -68,6 +69,7 @@ export class AudioStrip extends Strip {
       id: this.id,
       length: this.length,
       start: this.start,
+      percent: this.percent,
       type: this.type,
       layer: this.layer,
       src: this.asset?.path || '',

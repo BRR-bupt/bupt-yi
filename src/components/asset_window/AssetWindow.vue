@@ -17,7 +17,11 @@
   </div>
   <div class="assets-button">
     <input ref="refUpdateAsset" type="file" style="display: none" @change="(e: Event) => store.updateAsset(e)" />
-    <el-button :icon="UploadFilled" type="success" @click="refUpdateAsset?.click()" v-if="store.selectedAsset"
+    <el-button
+      :icon="UploadFilled"
+      type="success"
+      @click="refUpdateAsset?.click()"
+      v-if="store.selectedAsset && store.isOpenProject"
       >Update</el-button
     >
     <FileButton @add-asset="store.addAsset" />

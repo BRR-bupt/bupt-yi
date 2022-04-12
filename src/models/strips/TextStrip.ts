@@ -22,6 +22,7 @@ export interface ITextStrip {
   length: number
   layer: number
   text: string
+  percent: number
   fontSize: number
   fontFamily: string
   color: string
@@ -48,6 +49,7 @@ export class TextStrip extends Strip implements ITextStrip {
    */
   text: string = ''
 
+  percent: number = 100
   /**
    * Font size. 1px is 1px of the rendering screen.
    */
@@ -230,6 +232,7 @@ export class TextStrip extends Strip implements ITextStrip {
       fontFamily: this.fontFamily,
       fontSize: this.fontSize,
       length: this.length,
+      percent: this.percent,
       position: {
         x: this.position.x,
         y: this.position.y,

@@ -17,7 +17,7 @@
       <el-input-number v-model="strip.position.y" />
     </el-form-item>
     <el-form-item label="Percent (%)">
-      <el-input-number v-model="strip.percent" :step="10" @change="strip.fixPercent(strip.percent)" />
+      <el-input-number v-model="strip.percent" :step="10" />
     </el-form-item>
   </el-form>
 </template>

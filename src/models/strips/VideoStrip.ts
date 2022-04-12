@@ -28,6 +28,7 @@ export class VideoStrip extends Strip {
   loaded: boolean = false
 
   videoOffset: number = 0
+  percent: number = 100
 
   video!: HTMLVideoElement
   canvas?: HTMLCanvasElement
@@ -58,6 +59,7 @@ export class VideoStrip extends Strip {
     if (iface.length) this.length = iface.length
     if (iface.layer) this.layer = iface.layer
     if (iface.start) this.start = iface.start
+    if (iface.percent) this.percent = iface.percent
 
     this.canvas = document.createElement('canvas')
     this.canvas.width = this.video.videoWidth
@@ -91,6 +93,7 @@ export class VideoStrip extends Strip {
     return {
       id: this.id,
       length: this.length,
+      percent: this.percent,
       position: {
         x: this.position.x,
         y: this.position.y,
@@ -121,7 +124,10 @@ export class VideoStrip extends Strip {
       this.canvas.width = this.video.videoWidth
       this.canvas.height = this.video.videoHeight
 
-      this.obj.geometry = new T.PlaneGeometry(this.canvas.width, this.canvas.height)
+      this.obj.geometry = new T.PlaneGeometry(
+        (this.canvas.width * this.percent) / 100,
+        (this.canvas.height * this.percent) / 100
+      )
       console.log(this.video.videoWidth)
       console.log(this.video)
 
@@ -149,6 +155,7 @@ export class VideoStrip extends Strip {
     if (this.ctx && this.video) this.ctx.drawImage(this.video, 0, 0)
     this.obj.position.copy(this.position)
     this.obj.position.setZ(this.layer)
+    // this.obj.geometry.scale(0.5, 0.5, 1)
 
     if (!this.loaded) {
       this.obj.visible = false

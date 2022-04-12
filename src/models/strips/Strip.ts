@@ -5,6 +5,7 @@ export type IStrip = {
   start: number
   length: number
   layer: number
+  percent: number
   readonly type: string
 }
 
@@ -30,6 +31,7 @@ export class Strip implements IStrip {
       layer: this.layer,
       length: this.length,
       start: this.start,
+      percent: this.percent,
       type: this.type
     }
   }

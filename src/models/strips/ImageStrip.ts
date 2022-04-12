@@ -22,6 +22,7 @@ export class ImageStrip extends Strip {
   type: string = 'Image'
 
   videoOffset: number = 0
+  percent: number = 100
 
   obj!: T.Mesh
   tex?: T.Texture
@@ -59,6 +60,7 @@ export class ImageStrip extends Strip {
     if (iface.length) this.length = iface.length
     if (iface.layer) this.layer = iface.layer
     if (iface.start) this.start = iface.start
+    if (iface.percent) this.percent = iface.percent
 
     if (imageAsset) {
       this.tex = new T.TextureLoader().load(imageAsset.path, () => {
@@ -91,6 +93,7 @@ export class ImageStrip extends Strip {
     return {
       id: this.id,
       length: this.length,
+      percent: this.percent,
       position: {
         x: this.position.x,
         y: this.position.y,
@@ -134,17 +137,12 @@ export class ImageStrip extends Strip {
     })
   }
 
-  fixPercent(percent: number) {
-    if (this.obj) {
-      this.obj.scale.set((this.width * percent) / 100, (this.height * percent) / 100, 1)
-    }
-  }
-
   // update核心是对obj（mesh）的更新
   // 而该mesh在之前已经被添加到scene中，实现了绑定（同步更新）？
   public async update(time: number, _delta: number, _isPlay: boolean, _playMode: PlayMode, _fps: number) {
     this.obj.position.set(this.position.x, this.position.y, this.position.z)
     this.obj.position.setZ(this.layer)
+    this.obj.scale.set((this.width * this.percent) / 100, (this.height * this.percent) / 100, 1)
 
     // 超出或未到存在时间段，visible = flase，不可见
     if (this.start < time && time < this.end) {

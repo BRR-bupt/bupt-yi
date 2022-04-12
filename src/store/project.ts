@@ -34,6 +34,7 @@ export const useStore = defineStore('project', {
       assets: [],
       strips: []
     }),
+    isOpenProject: <boolean>false,
 
     selectedAsset: <Asset | null>null,
     selectedStrip: <Strip | null>null,
@@ -74,11 +75,10 @@ export const useStore = defineStore('project', {
           const iproject = JSON.parse(text)
           if (isProject(iproject)) {
             this.project = new Project(iproject)
-            console.log('222')
-
+            this.isOpenProject = true
             ElNotification({
               title: 'Success',
-              message: 'This is a success message',
+              message: '导入成功，请点击 Asset Window 中的资产进行更新',
               type: 'success',
               position: 'top-left'
             })
@@ -253,6 +253,7 @@ export const useStore = defineStore('project', {
         start: this.currentTime,
         length: 5,
         layer: 0,
+        percent: 100,
         text: 'New Text',
         fontSize: 14,
         fontFamily: 'serif',
@@ -304,6 +305,7 @@ export const useStore = defineStore('project', {
         start: 0,
         length: 5,
         layer: 0,
+        percent: 100,
         type: 'Audio'
       })
       this.addStrip(newStrip)
@@ -320,6 +322,7 @@ export const useStore = defineStore('project', {
             length: target.end - this.currentTime,
             layer: 0,
             position: target.position,
+            percent: 100,
             src: '',
             id: '',
             type: 'Video',
