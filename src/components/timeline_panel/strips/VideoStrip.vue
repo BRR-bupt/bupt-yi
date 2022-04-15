@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 .video-strip {
   width: 100%;
   height: 100%;
-  background: var(--strip-video);
+  background: rgb(72, 72, 197);
   font-size: 12px;
 }
 

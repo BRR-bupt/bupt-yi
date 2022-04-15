@@ -13,7 +13,7 @@ const props = defineProps<{
 
 <style scoped>
 .text-strip {
-  background-color: var(--strip-text);
+  background-color: green;
   width: 100%;
   height: 100%;
   padding-left: 6px;

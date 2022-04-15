@@ -20,7 +20,7 @@ defineProps<{
 
 <style scoped>
 .image-strip {
-  background-color: var(--strip-image);
+  background-color: rgb(152, 92, 8);
   width: 100%;
   height: 100%;
   padding-left: 4px;

@@ -47,7 +47,7 @@ onMounted(() => {
 .audio-strip {
   width: 100%;
   height: 100%;
-  background: var(--strip-audio);
+  background: rgb(211, 111, 128);
   font-size: 12px;
 }
 
