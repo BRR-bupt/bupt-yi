@@ -7,7 +7,6 @@ specifiers:
   '@types/node': ^17.0.23
   '@types/three': ^0.130.1
   '@types/uuid': ^8.3.4
-  '@types/wavesurfer.js': ^6.0.3
   '@vitejs/plugin-vue': ^2.2.0
   element-plus: ^2.1.6
   less: ^4.1.2
@@ -22,7 +21,6 @@ specifiers:
   vue: ^3.2.25
   vue-router: ^4.0.14
   vue-tsc: ^0.29.8
-  wavesurfer.js: ^6.1.0
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/1.1.4_vue@3.2.31
@@ -35,14 +33,12 @@ dependencies:
   uuid: registry.npmmirror.com/uuid/8.3.2
   vue: registry.npmmirror.com/vue/3.2.31
   vue-router: registry.npmmirror.com/vue-router/4.0.14_vue@3.2.31
-  wavesurfer.js: registry.npmmirror.com/wavesurfer.js/6.1.0
 
 devDependencies:
   '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
   '@types/node': registry.npmmirror.com/@types/node/17.0.23
   '@types/three': registry.npmmirror.com/@types/three/0.130.2
   '@types/uuid': registry.npmmirror.com/@types/uuid/8.3.4
-  '@types/wavesurfer.js': registry.npmmirror.com/@types/wavesurfer.js/6.0.3
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.3.1_vite@2.9.0+vue@3.2.31
   typescript: registry.npmmirror.com/typescript/4.6.3
   unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.6.8_vite@2.9.0
@@ -193,12 +189,6 @@ packages:
       picomatch: registry.npmmirror.com/picomatch/2.3.1
     dev: true
 
-  registry.npmmirror.com/@types/debounce/1.2.1:
-    resolution: {integrity: sha512-epMsEE85fi4lfmJUH/89/iV/LI+F5CvNIvmgs5g5jYFPfhO2S/ae8WSsLOKWdwtoaZw9Q2IhJ4tQ5tFCcS/4HA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/debounce/-/debounce-1.2.1.tgz}
-    name: '@types/debounce'
-    version: 1.2.1
-    dev: true
-
   registry.npmmirror.com/@types/lodash-es/4.17.6:
     resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash-es/-/lodash-es-4.17.6.tgz}
     name: '@types/lodash-es'
@@ -229,14 +219,6 @@ packages:
     resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/uuid/-/uuid-8.3.4.tgz}
     name: '@types/uuid'
     version: 8.3.4
-    dev: true
-
-  registry.npmmirror.com/@types/wavesurfer.js/6.0.3:
-    resolution: {integrity: sha512-5Sb5s3pEkOmDosaaP1DWp1Unnx8HhVorm5608TIVdT5jCMvJ6eqM19UD8n7DEbJ7rzreS9RqHmzR8TlcdQBvbA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/wavesurfer.js/-/wavesurfer.js-6.0.3.tgz}
-    name: '@types/wavesurfer.js'
-    version: 6.0.3
-    dependencies:
-      '@types/debounce': registry.npmmirror.com/@types/debounce/1.2.1
     dev: true
 
   registry.npmmirror.com/@vitejs/plugin-vue/2.3.1_vite@2.9.0+vue@3.2.31:
@@ -2147,12 +2129,6 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom/3.2.31
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer/3.2.31_vue@3.2.31
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.31
-    dev: false
-
-  registry.npmmirror.com/wavesurfer.js/6.1.0:
-    resolution: {integrity: sha512-Ss8d4PC8r1vSE8Qtf3UhC6o4BWXL1J/tr9DFwshFW2pSZBdkzau6FzWGJUul3aoOZSFb+azC5F/m0I9F+vU72w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/wavesurfer.js/-/wavesurfer.js-6.1.0.tgz}
-    name: wavesurfer.js
-    version: 6.1.0
     dev: false
 
   registry.npmmirror.com/webidl-conversions/3.0.1:

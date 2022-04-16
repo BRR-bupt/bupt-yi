@@ -1,10 +1,8 @@
-import { Asset, IAsset } from './Asset'
-
-export type IAudioAsset = IAsset
+import { Asset } from './Asset'
 
 const supportTypes = ['audio/wav', 'audio/mp3', 'audio/mpeg', 'audio/ogg']
 
-export class AudioAsset extends Asset implements IAudioAsset {
+export class AudioAsset extends Asset {
   type: string = 'Audio'
 
   public static isSupportType(type: string) {

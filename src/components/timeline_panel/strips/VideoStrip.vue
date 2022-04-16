@@ -20,7 +20,6 @@ const canvasWidth = computed(() => {
   return props.strip.length * props.scale
 })
 
-const wave = ref()
 const waveStyle = ref<StyleValue>()
 
 const watchViodeOffset = () => {

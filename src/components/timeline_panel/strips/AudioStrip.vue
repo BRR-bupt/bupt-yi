@@ -1,6 +1,6 @@
 <template>
   <div class="audio-strip">
-    <div ref="wave2" class="wave" :style="style"></div>
+    <div class="wave" :style="style"></div>
     <span v-if="strip.asset">
       {{ strip.asset.name }}
     </span>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { StyleValue } from 'vue'
-import WaveSufer from 'wavesurfer.js'
+// import WaveSufer from 'wavesurfer.js'
 import { AudioStrip } from '../../../models'
 const props = defineProps<{
   strip: AudioStrip
@@ -23,24 +23,24 @@ const style = computed((): StyleValue => {
   }
 })
 
-const wave = ref<WaveSufer>()
-watch(
-  () => props.scale,
-  (n: number) => {
-    wave.value?.zoom(n)
-  }
-)
+// const wave = ref<WaveSufer>()
+// watch(
+//   () => props.scale,
+//   (n: number) => {
+//     wave.value?.zoom(n)
+//   }
+// )
 
-const wave2 = ref<HTMLElement>()
-onMounted(() => {
-  wave.value = WaveSufer.create({
-    container: wave2.value as HTMLElement,
-    height: 26,
-    waveColor: '#ff9800',
-    interact: false
-  })
-  if (props.strip.audio.src) wave.value.load(props.strip.audio)
-})
+// const wave2 = ref<HTMLElement>()
+// onMounted(() => {
+//   wave.value = WaveSufer.create({
+//     container: wave2.value as HTMLElement,
+//     height: 26,
+//     waveColor: '#ff9800',
+//     interact: false
+//   })
+//   if (props.strip.audio.src) wave.value.load(props.strip.audio)
+// })
 </script>
 
 <style scoped>
