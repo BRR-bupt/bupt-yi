@@ -44,30 +44,30 @@ const waveCanvas = ref<HTMLCanvasElement>()
 onMounted(() => {
   ctx.value = waveCanvas.value?.getContext('2d') as CanvasRenderingContext2D
   watchViodeOffset()
-  update()
+  // update()
 })
 const cancel = ref(0)
-const update = () => {
-  const srcX = props.strip.videoOffset * 10 * 2
-  const c = props.strip.videoAsset?.getcanvas(srcX)
-  if (c) {
-    if (waveCanvas.value) {
-      ctx.value?.clearRect(0, 0, waveCanvas.value.width, waveCanvas.value.height)
-    }
-    ctx.value?.drawImage(
-      c,
-      props.strip.videoAsset?.getSrcX(srcX) || 0,
-      0,
-      props.strip.length * 10 * 2,
-      26,
-      0,
-      0,
-      canvasWidth.value,
-      26
-    )
-  }
-  cancel.value = window.requestAnimationFrame(update)
-}
+// const update = () => {
+//   const srcX = props.strip.videoOffset * 10 * 2
+//   const c = props.strip.videoAsset?.getcanvas(srcX)
+//   if (c) {
+//     if (waveCanvas.value) {
+//       ctx.value?.clearRect(0, 0, waveCanvas.value.width, waveCanvas.value.height)
+//     }
+//     ctx.value?.drawImage(
+//       c,
+//       props.strip.videoAsset?.getSrcX(srcX) || 0,
+//       0,
+//       props.strip.length * 10 * 2,
+//       26,
+//       0,
+//       0,
+//       canvasWidth.value,
+//       26
+//     )
+//   }
+//   cancel.value = window.requestAnimationFrame(update)
+// }
 
 onBeforeUnmount(() => {
   if (cancel.value !== 0) {

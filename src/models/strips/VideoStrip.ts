@@ -116,7 +116,7 @@ export class VideoStrip extends Strip {
     }
     this.videoAsset = asset
     this.loaded = false
-    asset.valid = false
+    // asset.valid = false
     const onLoad = () => {
       if (!this.canvas) return
       if (this.loaded) return
@@ -132,7 +132,7 @@ export class VideoStrip extends Strip {
       console.log(this.video)
 
       this.loaded = true
-      asset.valid = true
+      // asset.valid = true
       this.event.dispatchEvent(new CustomEvent('update'))
     }
     this.video.onloadedmetadata = () => onLoad()
