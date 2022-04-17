@@ -2,7 +2,7 @@ import { v4 } from 'uuid'
 import { AudioAsset } from '../assets'
 import { IStrip, Strip } from './Strip'
 import { PlayMode, PLAY_EVERY_FRAME } from '../../plugins/config'
-import { ProjError } from '../../plugins/error'
+import { throwNotice } from '../../plugins/notice'
 
 const FPS_ERROR_TOLERANCE = 0.01
 const ASSET_SEEK_TIMEOUT_MS = 10000
@@ -78,7 +78,7 @@ export class AudioStrip extends Strip {
   wait(time: number) {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
-        reject(new ProjError('Audio Seek Timeout'))
+        reject(throwNotice('error', 'Audio Seek Timeout'))
       }, ASSET_SEEK_TIMEOUT_MS)
       this.audio.onseeked = () => {
         clearTimeout(timeout)

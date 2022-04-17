@@ -4,7 +4,7 @@
 import FFmpeg from '@ffmpeg/ffmpeg'
 import { AudioStrip, Strip, VideoStrip } from './strips'
 import { download } from '../plugins/download'
-import { ProjError } from '../plugins/error'
+import { throwNotice } from '../plugins/notice'
 import { getExt } from '../plugins/file'
 
 const WEBM_FILE_NAME = '_video.webm'
@@ -250,7 +250,8 @@ export default class Encoder {
       // 清除文件
       this.removeFile(OUTPUT_FILE_NAME)
     } catch (e) {
-      throw new ProjError('Fail Export ' + e)
+      // throw new ProjError('Fail Export ' + e)
+      throw throwNotice('error', '导出失败, ' + e)
     }
   }
 }

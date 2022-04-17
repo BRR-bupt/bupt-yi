@@ -1,4 +1,4 @@
-import { ProjError } from './error'
+import { throwNotice } from './notice'
 import { Asset, AudioAsset, ImageAsset, VideoAsset } from '../models'
 import {
   AudioStrip,
@@ -39,7 +39,7 @@ export class StripUtil {
         const is = JSON.parse(JSON.stringify(s)) as ITextStrip
         return new TextStrip(is)
       } else {
-        throw new ProjError('Error Undefined Strip Type: ' + s.type)
+        throw throwNotice('error', '出现未定义的素材条类型：' + s.type)
       }
     })
   }

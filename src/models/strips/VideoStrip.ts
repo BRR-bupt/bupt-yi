@@ -3,7 +3,7 @@ import { VideoAsset } from '../assets'
 import { IVector3 } from '../math/Vector3'
 import { IStrip, Strip } from './Strip'
 import { PlayMode, PLAY_EVERY_FRAME } from '../../plugins/config'
-import { ProjError } from '../../plugins/error'
+import { throwNotice } from '../../plugins/notice'
 
 const FPS_ERROR_TOLERANCE = 0.01
 const ASSET_SEEK_TIMEOUT_MS = 10000
@@ -196,7 +196,7 @@ export class VideoStrip extends Strip {
   wait(time: number) {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
-        reject(new ProjError('Video Seek Timeout'))
+        reject(throwNotice('error', 'Video Seek Timeout'))
       }, ASSET_SEEK_TIMEOUT_MS)
       this.video.onseeked = () => {
         clearTimeout(timeout)

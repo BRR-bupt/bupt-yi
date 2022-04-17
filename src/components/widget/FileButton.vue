@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { ProjError } from '../../plugins/error'
+import { throwNotice } from '../../plugins/notice'
 import { Upload } from '@element-plus/icons-vue'
 const input = ref<HTMLElement | null>(null)
 
@@ -17,7 +17,7 @@ const emit = defineEmits<{
 const change = (e: Event) => {
   const target = e.target as HTMLInputElement
   if (!target.files) return
-  if (target.files.length > 1) throw new ProjError('Not support multiple files.')
+  if (target.files.length > 1) throw throwNotice('error', 'Not support multiple files.')
   const file = target.files[0]
   emit('addAsset', file)
 }
