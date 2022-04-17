@@ -9,13 +9,13 @@ const FPS_ERROR_TOLERANCE = 0.01
 const ASSET_SEEK_TIMEOUT_MS = 10000
 
 export type IVideoStrip = IStrip & {
-  id?: string
-  start?: number
-  length?: number
+  id: string
+  start: number
+  length: number
   position: IVector3
-  percent?: number
-  layer?: number
-  type?: string
+  percent: number
+  layer: number
+  type: string
   src: string
   videoOffset: number
   readonly assetId: string
@@ -36,10 +36,9 @@ export class VideoStrip extends Strip {
   ctx?: CanvasRenderingContext2D | null
   tex?: T.VideoTexture
 
-  playRequests: number[] = []
   videoDuration: number = 0
 
-  event: EventTarget = new EventTarget()
+  // event: EventTarget = new EventTarget()
 
   videoAsset?: VideoAsset
 
@@ -133,7 +132,7 @@ export class VideoStrip extends Strip {
 
       this.loaded = true
       // asset.valid = true
-      this.event.dispatchEvent(new CustomEvent('update'))
+      // this.event.dispatchEvent(new CustomEvent('update'))
     }
     this.video.onloadedmetadata = () => onLoad()
     this.video.src = asset.path
@@ -155,7 +154,6 @@ export class VideoStrip extends Strip {
     if (this.ctx && this.video) this.ctx.drawImage(this.video, 0, 0)
     this.obj.position.copy(this.position)
     this.obj.position.setZ(this.layer)
-    // this.obj.geometry.scale(0.5, 0.5, 1)
 
     if (!this.loaded) {
       this.obj.visible = false
@@ -165,13 +163,12 @@ export class VideoStrip extends Strip {
       this.obj.visible = true
       this.video.volume = 1
       if (isPlay && this.video.paused) {
-        this.playRequests.push(0)
         this.video.play().then(() => {
-          this.playRequests.pop()
+          this.video.currentTime = time - this.start + this.videoOffset
         })
         // 根据参数time：时间轴游标位置（editor.currentTime）和 strip.start及videoOffset
         // 计算得到该视频播放的位置
-        this.video.currentTime = time - this.start + this.videoOffset
+        // this.video.currentTime = time - this.start + this.videoOffset
       }
       if (!isPlay) {
         this.video.pause()

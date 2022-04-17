@@ -16,7 +16,7 @@ import TextStrip from './strips/TextStrip.vue'
 import VideoStrip from './strips/VideoStrip.vue'
 import ImageStrip from './strips/ImageStrip.vue'
 import AudioStrip from './strips/AudioStrip.vue'
-import { roundToFrame } from '../../plugins/utils/roundToFrame'
+import { roundToFrame } from '../../plugins/roundToFrame'
 import { addDragEventOnce } from '../../plugins/mouse'
 
 const props = defineProps<{

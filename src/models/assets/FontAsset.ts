@@ -1,9 +1,7 @@
 import * as THREE from 'three'
-import { Asset, IAsset } from './Asset'
+import { Asset } from './Asset'
 
-export type IFontAsset = IAsset
-
-export class FontAsset extends Asset implements IFontAsset {
+export class FontAsset extends Asset {
   public static defaultFont: FontAsset
   type: string = 'Font'
 

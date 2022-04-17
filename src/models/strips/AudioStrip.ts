@@ -8,12 +8,11 @@ const FPS_ERROR_TOLERANCE = 0.01
 const ASSET_SEEK_TIMEOUT_MS = 10000
 
 export type IAudioStrip = IStrip & {
-  id?: string
-  start?: number
-  length?: number
-  layer?: number
-  percent: number
-  type?: string
+  id: string
+  start: number
+  length: number
+  layer: number
+  type: string
   src: string
   readonly assetId: string
 }
@@ -23,7 +22,7 @@ export class AudioStrip extends Strip {
   readonly type: string = 'Audio'
   asset: AudioAsset | null = null
 
-  playRequests: number[] = []
+  // playRequests: number[] = []
 
   loaded: boolean = false
 
@@ -69,7 +68,6 @@ export class AudioStrip extends Strip {
       id: this.id,
       length: this.length,
       start: this.start,
-      percent: this.percent,
       type: this.type,
       layer: this.layer,
       src: this.asset?.path || '',
@@ -96,11 +94,12 @@ export class AudioStrip extends Strip {
     if (this.start < time && time < this.end) {
       this.audio.volume = 1
       if (isPlay && this.audio.paused) {
-        this.playRequests.push(0)
+        // this.playRequests.push(0)
         this.audio.play().then(() => {
-          this.playRequests.pop()
+          // this.playRequests.pop()
+          this.audio.currentTime = time - this.start
         })
-        this.audio.currentTime = time - this.start
+        // this.audio.currentTime = time - this.start
       }
       if (!isPlay) {
         this.audio.pause()

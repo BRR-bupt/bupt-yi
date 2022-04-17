@@ -1,11 +1,13 @@
 import { PlayMode } from '../../plugins/config'
+import { IVector3 } from '@/models/math/Vector3'
 
 export type IStrip = {
   id: string
   start: number
   length: number
   layer: number
-  percent: number
+  position?: IVector3
+  percent?: number
   readonly type: string
 }
 
@@ -14,9 +16,8 @@ export class Strip implements IStrip {
   start: number = 0
   length: number = 0
   layer: number = 0
-  // obj: any
-  position: any
-  percent: number = 100
+  position?: IVector3 = { x: 0, y: 0, z: 0 }
+  percent?: number = 100
   readonly type: string = 'Video'
 
   get end() {

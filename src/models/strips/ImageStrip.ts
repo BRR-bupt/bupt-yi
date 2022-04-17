@@ -6,13 +6,13 @@ import { IStrip, Strip } from './Strip'
 import { PlayMode } from '../../plugins/config'
 
 export type IImageStrip = IStrip & {
-  id?: string
-  start?: number
-  length?: number
+  id: string
+  start: number
+  length: number
   position: IVector3
-  percent?: number
-  layer?: number
-  type?: string
+  percent: number
+  layer: number
+  type: string
   src: string
   readonly assetId: string
 }
@@ -20,29 +20,12 @@ export type IImageStrip = IStrip & {
 export class ImageStrip extends Strip {
   position: T.Vector3 = new T.Vector3(0, 0, 0)
   type: string = 'Image'
-
-  videoOffset: number = 0
   percent: number = 100
 
   obj!: T.Mesh
   tex?: T.Texture
-
-  playRequests: number[] = []
-  videoDuration: number = 0
-
-  event: EventTarget = new EventTarget()
-
-  /**
-   * quad plane geometry that forward -Z.
-   * size is 1x1.
-   */
   geometry!: PlaneBufferGeometry
-
-  /**
-   * material
-   */
   material!: MeshBasicMaterial
-
   imageAsset?: ImageAsset
 
   get width() {

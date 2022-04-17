@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { StyleValue } from 'vue'
 import { useStore } from '../../store/project'
-import { roundToFrame } from '../../plugins/utils/roundToFrame'
+import { roundToFrame } from '../../plugins/roundToFrame'
 const store = useStore()
 
 // timeView

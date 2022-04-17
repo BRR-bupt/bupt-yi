@@ -13,10 +13,10 @@ import {
 } from '../models'
 import { Project, isProject } from '../models/Project'
 import { v4 } from 'uuid'
-import { ProjError } from '../plugins/error'
+// import { ProjError } from '../plugins/error'
 import { StripUtil } from '../plugins/strip'
 import { SYNC_TO_AUDIO } from '../plugins/config'
-import { roundToFrame } from '../plugins/utils/roundToFrame'
+import { roundToFrame } from '../plugins/roundToFrame'
 import * as T from 'three'
 import { download } from '@/plugins/download'
 import { throwNotice } from '@/plugins/notice'
@@ -35,7 +35,6 @@ export const useStore = defineStore('project', {
       assets: [],
       strips: []
     }),
-    isOpenProject: <boolean>false,
 
     selectedAsset: <Asset | null>null,
     selectedStrip: <Strip | null>null,
@@ -76,7 +75,6 @@ export const useStore = defineStore('project', {
           const iproject = JSON.parse(text)
           if (isProject(iproject)) {
             this.project = new Project(iproject)
-            this.isOpenProject = true
             throwNotice('success', '导入成功，请点击 Asset Window 中的资产进行更新')
             // ElNotification({
             //   title: 'Success',
@@ -130,44 +128,37 @@ export const useStore = defineStore('project', {
       }
     },
     updateAsset(e: Event) {
-      console.log('updateAsset')
       const target = e.target as HTMLInputElement
       if (target.files && target.files.length == 1) {
         const file = target.files[0]
         const path = window.URL.createObjectURL(file)
         if (this.selectedAsset instanceof VideoAsset) {
           if (!VideoAsset.isSupportType(file.type)) {
-            // throw new ProjError(`Invalid file type ${file.type} to Video.`)
             throw throwNotice('error', `Invalid file type ${file.type} to Video.`)
           }
           const newAsset = new VideoAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else if (this.selectedAsset instanceof ImageAsset) {
           if (!ImageAsset.isSupportType(file.type)) {
-            // throw new ProjError(`Invalid file type ${file.type} to Image.`)
             throw throwNotice('error', `Invalid file type ${file.type} to Image.`)
           }
           const newAsset = new ImageAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else if (this.selectedAsset instanceof AudioAsset) {
           if (!AudioAsset.isSupportType(file.type)) {
-            // throw new ProjError(`Invalid file type ${file.type} to Audio.`)
             throw throwNotice('error', `Invalid file type ${file.type} to Audio.`)
           }
           const newAsset = new AudioAsset(this.selectedAsset.id, file.name, path)
           this.updateAssetInProject(newAsset)
         } else {
-          // throw new ProjError('Sorry under implementation.')
           throw throwNotice('error', 'Sorry under implementation.')
         }
       }
     },
     updateAssetInProject(newAsset: Asset) {
-      console.log('me')
       const i = this.project.assets.findIndex(a => a == this.selectedAsset)
       const oldAsset = this.project.assets[i]
       this.project.assets.splice(i, 1, newAsset)
-      // 不应该对所有的同类strip都进行updateAsset，有bug
       this.project.strips.forEach(s => {
         if (s instanceof VideoStrip && newAsset instanceof VideoAsset) {
           if (s.videoAsset == oldAsset) {
@@ -262,7 +253,6 @@ export const useStore = defineStore('project', {
         start: this.currentTime,
         length: 5,
         layer: 0,
-        percent: 100,
         text: 'New Text',
         fontSize: 14,
         fontFamily: 'serif',
@@ -284,7 +274,7 @@ export const useStore = defineStore('project', {
         start: this.currentTime,
         length: 5,
         layer: 0,
-        position: { x: 0, y: 0, z: 0 },
+        position: { x: 200, y: 200, z: 0 },
         percent: 100,
         src: '',
         id: '',

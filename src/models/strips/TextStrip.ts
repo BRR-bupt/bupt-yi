@@ -22,7 +22,6 @@ export interface ITextStrip {
   length: number
   layer: number
   text: string
-  percent: number
   fontSize: number
   fontFamily: string
   color: string
@@ -232,7 +231,6 @@ export class TextStrip extends Strip implements ITextStrip {
       fontFamily: this.fontFamily,
       fontSize: this.fontSize,
       length: this.length,
-      percent: this.percent,
       position: {
         x: this.position.x,
         y: this.position.y,

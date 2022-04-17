@@ -2,6 +2,7 @@ import { ProjError } from './error'
 import { Asset, AudioAsset, ImageAsset, VideoAsset } from '../models'
 import {
   AudioStrip,
+  IAudioStrip,
   IImageStrip,
   ImageStrip,
   IStrip,
@@ -27,7 +28,7 @@ export class StripUtil {
         const va = getAssetById(ivs.assetId) as VideoAsset | undefined
         return new VideoStrip(ivs, va)
       } else if (s.type == 'Audio') {
-        const ias = JSON.parse(JSON.stringify(s)) as IVideoStrip
+        const ias = JSON.parse(JSON.stringify(s)) as IAudioStrip
         const aa = getAssetById(ias.assetId) as AudioAsset | undefined
         return new AudioStrip(s, aa)
       } else if (s.type == 'Image') {
