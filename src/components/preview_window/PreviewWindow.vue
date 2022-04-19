@@ -53,8 +53,8 @@ const left = ref(32)
 const scale = ref(0.4)
 const canvasContainerStyle = computed(() => {
   return {
-    width: project.value.width * scale.value + 2 + 'px',
-    height: project.value.height * scale.value + 2 + 'px',
+    width: project.value.width * scale.value + 'px',
+    height: project.value.height * scale.value + 'px',
     top: top.value + 'px',
     left: left.value + 'px'
   }

@@ -172,12 +172,15 @@ export class VideoStrip extends Strip {
       }
       if (!isPlay) {
         this.video.pause()
+        this.video.currentTime = time - this.start + this.videoOffset
       }
       if (lwoFps) {
         this.video.currentTime = time - this.start + this.videoOffset
       }
+      // this.video.currentTime = time - this.start + this.videoOffset
       // if渲染模式
       if (playMode == PLAY_EVERY_FRAME) {
+        console.log('play')
         await this.wait(time - this.start + this.videoOffset)
       }
     } else {

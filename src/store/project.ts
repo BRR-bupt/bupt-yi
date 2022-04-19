@@ -13,14 +13,12 @@ import {
 } from '../models'
 import { Project, isProject } from '../models/Project'
 import { v4 } from 'uuid'
-// import { ProjError } from '../plugins/error'
 import { StripUtil } from '../plugins/strip'
 import { SYNC_TO_AUDIO } from '../plugins/config'
 import { roundToFrame } from '../plugins/roundToFrame'
 import * as T from 'three'
 import { download } from '@/plugins/download'
 import { throwNotice } from '@/plugins/notice'
-// import { ElNotification } from 'element-plus'
 
 export const useStore = defineStore('project', {
   state: () => ({
@@ -42,7 +40,7 @@ export const useStore = defineStore('project', {
     // 播放控制参数
     isPlay: <boolean>false,
     start: <number>0,
-    currentTime: <number>0,
+    currentTime: <number>1,
     offset: <number>0,
     scale: <number>10,
     minScale: <number>1,
@@ -250,31 +248,28 @@ export const useStore = defineStore('project', {
     addTextStrip() {
       const newStrip = new TextStrip({
         id: v4(),
-        start: this.currentTime,
+        start: this.currentTime - 1,
         length: 5,
         layer: 0,
         text: 'New Text',
         fontSize: 14,
         fontFamily: 'serif',
         color: 'white',
-        position: { x: 0, y: 0, z: 0 },
+        position: { x: 500, y: 500, z: -10 },
         type: 'Text',
         shadowColor: '',
         shadowBlur: 0,
         outlineColor: '',
         outlineSize: 0
       })
-      newStrip.start = this.currentTime
-      newStrip.length = 5
-      newStrip.position.set(500, 500, -10)
       this.addStrip(newStrip)
     },
     addVideoStrip() {
       const newStrip = new VideoStrip({
-        start: this.currentTime,
-        length: 5,
+        start: this.currentTime - 1,
+        length: 10,
         layer: 0,
-        position: { x: 200, y: 200, z: 0 },
+        position: { x: 960, y: 540, z: 0 },
         percent: 100,
         src: '',
         id: '',
@@ -286,7 +281,7 @@ export const useStore = defineStore('project', {
     },
     addImageStrip() {
       const newStrip = new ImageStrip({
-        start: this.currentTime,
+        start: this.currentTime - 1,
         length: 5,
         layer: 0,
         position: { x: 200, y: 200, z: 0 },

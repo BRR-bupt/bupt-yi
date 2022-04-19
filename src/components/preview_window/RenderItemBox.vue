@@ -18,8 +18,8 @@ onMounted(() => {
         if (props.strip === null) return
         if (canDrawStrip(props.strip)) {
           const iface = props.strip.toInterface()
-          const x = iface.position.x + e.movementX / props.scale
-          const y = iface.position.y - e.movementY / props.scale
+          const x = iface.position.x + e.movementX * 1.6
+          const y = iface.position.y - e.movementY * 1.6
           // 改变strip的位置信息
           if (props.strip && StripUtil.isThreeJsStrip(props.strip)) {
             props.strip.position.set(x, y, iface.position.z)
@@ -63,7 +63,9 @@ const style = computed((): StyleValue => {
     if (props.strip instanceof VideoStrip) {
       width = (props.strip.video.videoWidth * props.scale * props.strip.percent) / 100
       height = (props.strip.video.videoHeight * props.scale * props.strip.percent) / 100
-      top = py * props.scale - height / 2 // for content-box
+      width = width < 100 ? 100 : width
+      height = height < 100 ? 100 : height
+      top = py * props.scale - height / 2
       left = px * props.scale - width / 2
     } else if (props.strip instanceof TextStrip) {
       width = props.strip.canvas.width * props.scale
