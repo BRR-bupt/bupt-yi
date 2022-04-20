@@ -1,4 +1,4 @@
-import { IAsset, IAudioAsset, IFontAsset, IImageAsset, IVideoAsset, Asset } from './assets'
+import { IAsset, Asset } from './assets'
 import { Strip, IImageStrip, IStrip, IVideoStrip } from './strips'
 import { _VERSION_ } from '.'
 import { AssetUtil } from '../plugins/asset'
@@ -12,7 +12,7 @@ export interface IProject {
   fps: number
   duration: number
 
-  assets: (IAsset | IAudioAsset | IVideoAsset | IFontAsset | IImageAsset)[]
+  assets: IAsset[]
   strips: (IStrip | IVideoStrip | IImageStrip)[]
 }
 

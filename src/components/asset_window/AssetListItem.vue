@@ -2,7 +2,7 @@
   <div @click="emit('select-asset')" :style="getStyle">
     <el-icon v-if="asset.type === 'Image'"><picture-filled /></el-icon>
     <el-icon v-else-if="asset.type === 'Video'"><film /></el-icon>
-    <el-icon v-else><phone /></el-icon>
+    <el-icon v-else><microphone /></el-icon>
     {{ asset.name }}
   </div>
   <hr />
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { StyleValue } from 'vue'
 import { Asset } from '../../models'
-import { PictureFilled, Film, Phone } from '@element-plus/icons-vue'
+import { PictureFilled, Film, Microphone } from '@element-plus/icons-vue'
 const props = defineProps<{
   asset: Asset
   selected: boolean
