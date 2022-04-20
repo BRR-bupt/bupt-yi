@@ -1,5 +1,5 @@
 <template>
-  <div class="appbar-font">BUPT-易剪辑</div>
+  <div class="appbar-font">BUPT·易剪辑</div>
   <div class="appbar-project">
     <el-button-group class="ml-3">
       <el-button type="success" size="small" :icon="Download" @click="store.downloadProject">工程下载</el-button>

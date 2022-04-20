@@ -1,8 +1,8 @@
 {
-  "name": "video-editor",
+  "name": "bupt-yi",
   "private": true,
-  "version": "1.0.0",
-  "athuor": "BUPT_BRR",
+  "version": "1.1.0",
+  "athuor": "baoruirui",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
