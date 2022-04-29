@@ -14,13 +14,13 @@
       <el-input-number :precision="3" v-model="strip.length" />
     </el-form-item>
     <el-form-item label="Pos-X">
-      <el-input-number v-model="strip.position.x" />
+      <el-input-number :precision="3" v-model="strip.position.x" />
     </el-form-item>
     <el-form-item label="Pos-Y">
-      <el-input-number v-model="strip.position.y" />
+      <el-input-number :precision="3" v-model="strip.position.y" />
     </el-form-item>
     <el-form-item label="Percent (%)">
-      <el-input-number v-model="strip.percent" @change="strip.fixPercent(strip.percent)" />
+      <el-input-number :step="10" v-model="strip.percent" @change="strip.fixPercent(strip.percent)" />
     </el-form-item>
   </el-form>
 </template>

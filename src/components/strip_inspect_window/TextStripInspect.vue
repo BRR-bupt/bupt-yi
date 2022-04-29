@@ -11,10 +11,10 @@
       <el-input-number :precision="3" v-model="strip.length" />
     </el-form-item>
     <el-form-item label="Pos-X">
-      <el-input-number v-model="strip.position.x" />
+      <el-input-number :precision="3" v-model="strip.position.x" />
     </el-form-item>
     <el-form-item label="Pos-Y">
-      <el-input-number v-model="strip.position.y" />
+      <el-input-number :precision="3" v-model="strip.position.y" />
     </el-form-item>
     <el-form-item label="Family">
       <el-input v-model="strip.fontFamily" />

@@ -26,7 +26,6 @@ const emit = defineEmits<{
   (e: 'change', value: OptionKeyValue): void
 }>()
 const change = (e: Event) => {
-  console.log('111222')
   const target = e.target as HTMLInputElement
   const item = props.items.find(item => item.value == target.value)
   if (item) emit('change', item)
