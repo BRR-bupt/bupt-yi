@@ -22,7 +22,6 @@
       <ExportingCard
         :mode="mode"
         :ffmpegProgress="ffmpegProgress"
-        :ffmpegProgressPreparation="ffmpegProgressPreparation"
         :ccaptureProgress="ccaptureProgress"
         :mediaRecorderProgress="mediaRecorderProgress"
       />
@@ -42,7 +41,7 @@
         <el-button v-if="!isEncoding" type="primary" :disabled="!isSupportBrowser()" @click="startEncode">
           Start
         </el-button>
-        <el-button v-else type="primary" @click="downloader">Download</el-button>
+        <el-button v-else type="primary" @click="downloader" :disabled="ffmpegProgress != 1">Download</el-button>
       </span>
     </template>
   </el-dialog>
@@ -122,7 +121,7 @@ const getScale = computed((): number => {
 })
 
 const ccaptureProgress = ref(0)
-const ffmpegProgressPreparation = ref(0)
+// const ffmpegProgressPreparation = ref(0)
 const ffmpegProgress = ref(0)
 const mediaRecorderProgress = ref(0)
 
@@ -186,10 +185,10 @@ const startEncode = async () => {
       props.project.duration,
       ratio => {
         ffmpegProgress.value = ratio
-      },
-      ratio => {
-        ffmpegProgressPreparation.value = ratio
       }
+      // ratio => {
+      //   ffmpegProgressPreparation.value = ratio
+      // }
     )
   }
   await recorder.value.start()
@@ -197,7 +196,7 @@ const startEncode = async () => {
 const cancel = async () => {
   isEncoding.value = false
   ccaptureProgress.value = 0
-  ffmpegProgressPreparation.value = 0
+  // ffmpegProgressPreparation.value = 0
   ffmpegProgress.value = 0
   mediaRecorderProgress.value = 0
   await recorder.value?.cancel()

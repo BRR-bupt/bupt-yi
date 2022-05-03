@@ -5,7 +5,7 @@ import FFmpeg from '@ffmpeg/ffmpeg'
 import { AudioStrip, Strip, VideoStrip } from './strips'
 import { download } from '../plugins/download'
 import { throwNotice } from '../plugins/notice'
-import { getExt } from '../plugins/file'
+// import { getExt } from '../plugins/file'
 
 const WEBM_FILE_NAME = '_video.webm'
 const OUTPUT_FILE_NAME = 'out.mp4'
@@ -28,7 +28,7 @@ export default class Encoder {
 
   linkFiles: Map<string, boolean> = new Map()
 
-  onProgressPreparationAssets: (rartio: number) => void
+  // onProgressPreparationAssets: (rartio: number) => void
   onProgress: (rartio: number) => void
 
   get frames() {
@@ -41,8 +41,8 @@ export default class Encoder {
     fps: number,
     strips: Strip[],
     duration: number,
-    onProgress: (ratio: number) => void,
-    onProgressPreparationAssets: (ratio: number) => void
+    onProgress: (ratio: number) => void
+    // onProgressPreparationAssets: (ratio: number) => void
   ) {
     this.width = width
     this.height = height
@@ -51,15 +51,15 @@ export default class Encoder {
 
     this.duration = duration
     this.onProgress = onProgress
-    this.onProgressPreparationAssets = onProgressPreparationAssets
+    // this.onProgressPreparationAssets = onProgressPreparationAssets
   }
 
-  writeFile(fileName: string, binaryData: Uint8Array) {
-    // Write data to MEMFS, need to use Uint8Array for binary data
-    this.ffmpeg?.FS('writeFile', fileName, binaryData)
-    // 向map对象中添加键值对
-    this.linkFiles.set(fileName, true)
-  }
+  // writeFile(fileName: string, binaryData: Uint8Array) {
+  //   // Write data to MEMFS, need to use Uint8Array for binary data
+  //   this.ffmpeg?.FS('writeFile', fileName, binaryData)
+  //   // 向map对象中添加键值对
+  //   this.linkFiles.set(fileName, true)
+  // }
 
   // 释放缓存区的文件，删除map中对应键值对
   removeFile(fileName: string) {
@@ -69,49 +69,68 @@ export default class Encoder {
     }
   }
 
-  log(params: { type: string; message: string }) {
-    const now = new Date()
-    const time = now.toISOString().substr(0, 19).replace('T', ' ')
-    const ms = (now.getTime() / 1000).toFixed(4).split('.')[1]
-    const log = `[${time}.${ms}] ${params.message}`
-    this.logs.splice(0, 0, log)
-  }
+  // log(params: { type: string; message: string }) {
+  //   const now = new Date()
+  //   const time = now.toISOString().substr(0, 19).replace('T', ' ')
+  //   const ms = (now.getTime() / 1000).toFixed(4).split('.')[1]
+  //   const log = `[${time}.${ms}] ${params.message}`
+  //   this.logs.splice(0, 0, log)
+  // }
 
   cancel() {
     this.isEncoding = false
     try {
       this.ffmpeg?.exit()
     } catch (e) {}
-    this.unlinkAssets()
+    // this.unlinkAssets()
     this.ffmpeg = null
   }
 
   // 渲染到文件的核心操作
   // 对Recorder的data处理
   // Recorder获取的data到底包含什么，值得探究
-  async encode(srcVideoFile: Uint8Array) {
-    await this.initFFmpeg()
-    // 将ccapture捕获数据写入内存文件MEMFS中
-    this.writeFile(WEBM_FILE_NAME, srcVideoFile)
-    this.time = 0
-    this.isEncoding = true
-    this.i = 0
-    this.ffmpegProgress = 0
-    await this.writeAssets()
-    await this.runMainEncode()
-    this.unlinkAssets()
-  }
+  // async encode(srcVideoFile: Uint8Array) {
+  //   await this.initFFmpeg()
+  //   // 将ccapture捕获数据写入内存文件MEMFS中
+  //   this.writeFile(WEBM_FILE_NAME, srcVideoFile)
+  //   this.time = 0
+  //   this.isEncoding = true
+  //   this.i = 0
+  //   this.ffmpegProgress = 0
+  //   await this.writeAssets()
+  //   await this.runMainEncode()
+  //   this.unlinkAssets()
+  // }
 
-  private async initFFmpeg() {
+  async encode(srcVideoFile: Uint8Array) {
     this.ffmpeg = FFmpeg.createFFmpeg({
-      log: true,
-      corePath: 'assets/js/ffmpeg/ffmpeg-core.js',
-      logger: v => this.log(v)
+      log: true
     })
     await this.ffmpeg.load()
+    this.ffmpeg.FS('writeFile', WEBM_FILE_NAME, srcVideoFile)
+    this.ffmpeg.setProgress(progress => {
+      let ratio = progress.ratio
+      if ('time' in progress) {
+        const p = progress as { time: number; ratio: number }
+        ratio = p.time / this.duration
+        if (ratio < 0) return 0
+      }
+      this.ffmpegProgress = ratio
+      this.onProgress(ratio)
+    })
+    await this.ffmpeg.run('-i', WEBM_FILE_NAME, OUTPUT_FILE_NAME)
   }
 
-  // 把video和audio资产文件数据unit8array写入缓存区
+  // private async initFFmpeg() {
+  //   this.ffmpeg = FFmpeg.createFFmpeg({
+  //     log: true,
+  //     corePath: 'assets/js/ffmpeg/ffmpeg-core.js',
+  //     logger: v => this.log(v)
+  //   })
+  //   await this.ffmpeg.load()
+  // }
+
+  /* // 把video和audio资产文件数据unit8array写入缓存区
   private async writeAssets() {
     if (!this.ffmpeg) return
     const length = this.strips.filter(s => {
@@ -237,7 +256,7 @@ export default class Encoder {
       }
     }
     this.removeFile(WEBM_FILE_NAME)
-  }
+  } */
 
   downloadOutput() {
     if (!this.ffmpeg) return
