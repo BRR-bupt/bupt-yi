@@ -18,8 +18,8 @@ onMounted(() => {
         if (props.strip === null) return
         if (canDrawStrip(props.strip)) {
           const iface = props.strip.toInterface()
-          const x = iface.position.x + e.movementX * 1.6
-          const y = iface.position.y - e.movementY * 1.6
+          const x = iface.position.x + e.movementX * 2.5
+          const y = iface.position.y - e.movementY * 2.5
           // 改变strip的位置信息
           if (props.strip && StripUtil.isThreeJsStrip(props.strip)) {
             props.strip.position.set(x, y, iface.position.z)
