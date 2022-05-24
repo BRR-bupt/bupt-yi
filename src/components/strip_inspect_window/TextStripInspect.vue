@@ -5,10 +5,10 @@
       <el-input v-model="strip.text" />
     </el-form-item>
     <el-form-item label="Start">
-      <el-input-number :precision="3" v-model="strip.start" />
+      <el-input-number :precision="3" v-model="strip.start" :min="0" />
     </el-form-item>
     <el-form-item label="Length">
-      <el-input-number :precision="3" v-model="strip.length" />
+      <el-input-number :precision="3" v-model="strip.length" :min="0" />
     </el-form-item>
     <el-form-item label="Pos-X">
       <el-input-number :precision="3" v-model="strip.position.x" />
@@ -23,7 +23,7 @@
       <el-input v-model="strip.fontStyle" />
     </el-form-item>
     <el-form-item label="Size">
-      <el-input-number :step="5" v-model="strip.fontSize" />
+      <el-input-number :step="5" v-model="strip.fontSize" :min="0" />
     </el-form-item>
     <el-form-item label="color">
       <el-input v-model="strip.color" />

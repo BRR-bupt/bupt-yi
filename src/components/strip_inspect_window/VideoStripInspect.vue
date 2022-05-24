@@ -5,13 +5,13 @@
       <Select :items="getSelectItems" :id="currentAssetId" @change="changeAsset" />
     </el-form-item>
     <el-form-item label="Start">
-      <el-input-number :precision="3" v-model="strip.start" />
+      <el-input-number :precision="3" v-model="strip.start" :min="0" />
     </el-form-item>
     <el-form-item label="Offset">
-      <el-input-number :precision="3" v-model="strip.videoOffset" />
+      <el-input-number :precision="3" v-model="strip.videoOffset" :min="0" />
     </el-form-item>
     <el-form-item label="Length">
-      <el-input-number :precision="3" v-model="strip.length" />
+      <el-input-number :precision="3" v-model="strip.length" :min="0" />
     </el-form-item>
     <el-form-item label="Pos-X">
       <el-input-number :precision="3" v-model="strip.position.x" />
@@ -20,7 +20,7 @@
       <el-input-number :precision="3" v-model="strip.position.y" />
     </el-form-item>
     <el-form-item label="Percent (%)">
-      <el-input-number :step="10" v-model="strip.percent" @change="strip.fixPercent(strip.percent)" />
+      <el-input-number :step="10" v-model="strip.percent" :min="0" @change="strip.fixPercent(strip.percent)" />
     </el-form-item>
   </el-form>
 </template>

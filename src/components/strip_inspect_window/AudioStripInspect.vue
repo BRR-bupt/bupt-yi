@@ -5,10 +5,10 @@
       <Select :items="getSelectItems" :id="currentAssetId" @change="changeAsset" />
     </el-form-item>
     <el-form-item label="Start">
-      <el-input-number v-model="strip.start" :precision="3" />
+      <el-input-number v-model="strip.start" :precision="3" :min="0" />
     </el-form-item>
     <el-form-item label="Length">
-      <el-input-number v-model="strip.length" :precision="3" />
+      <el-input-number v-model="strip.length" :precision="3" :min="0" />
     </el-form-item>
   </el-form>
 </template>
