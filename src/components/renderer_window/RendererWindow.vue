@@ -41,7 +41,13 @@
         <el-button v-if="!isEncoding" type="primary" :disabled="!isSupportBrowser()" @click="startEncode">
           Start
         </el-button>
-        <el-button v-else type="primary" @click="downloader" :disabled="ffmpegProgress != 1">Download</el-button>
+        <el-button
+          v-else
+          type="primary"
+          @click="downloader"
+          :disabled="ffmpegProgress != 1 && mediaRecorderProgress != 1"
+          >Download</el-button
+        >
       </span>
     </template>
   </el-dialog>
