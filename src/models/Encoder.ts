@@ -5,10 +5,12 @@ import FFmpeg from '@ffmpeg/ffmpeg'
 import { AudioStrip, Strip, VideoStrip } from './strips'
 import { download } from '../plugins/download'
 import { throwNotice } from '../plugins/notice'
-// import { getExt } from '../plugins/file'
+import { getExt } from '../plugins/file'
+// import { useStore } from '@/store/project'
+// const store = useStore()
 
 const WEBM_FILE_NAME = '_video.webm'
-const OUTPUT_FILE_NAME = 'out.mp4'
+const OUTPUT_FILE_NAME = 'outVideo.mp4'
 
 export default class Encoder {
   strips: Strip[]
@@ -54,12 +56,12 @@ export default class Encoder {
     // this.onProgressPreparationAssets = onProgressPreparationAssets
   }
 
-  // writeFile(fileName: string, binaryData: Uint8Array) {
-  //   // Write data to MEMFS, need to use Uint8Array for binary data
-  //   this.ffmpeg?.FS('writeFile', fileName, binaryData)
-  //   // 向map对象中添加键值对
-  //   this.linkFiles.set(fileName, true)
-  // }
+  writeFile(fileName: string, binaryData: Uint8Array) {
+    // Write data to MEMFS, need to use Uint8Array for binary data
+    this.ffmpeg?.FS('writeFile', fileName, binaryData)
+    // 向map对象中添加键值对
+    this.linkFiles.set(fileName, true)
+  }
 
   // 释放缓存区的文件，删除map中对应键值对
   removeFile(fileName: string) {
@@ -89,54 +91,54 @@ export default class Encoder {
   // 渲染到文件的核心操作
   // 对Recorder的data处理
   // Recorder获取的data到底包含什么，值得探究
-  // async encode(srcVideoFile: Uint8Array) {
-  //   await this.initFFmpeg()
-  //   // 将ccapture捕获数据写入内存文件MEMFS中
-  //   this.writeFile(WEBM_FILE_NAME, srcVideoFile)
-  //   this.time = 0
-  //   this.isEncoding = true
-  //   this.i = 0
-  //   this.ffmpegProgress = 0
-  //   await this.writeAssets()
-  //   await this.runMainEncode()
-  //   this.unlinkAssets()
-  // }
-
   async encode(srcVideoFile: Uint8Array) {
-    this.ffmpeg = FFmpeg.createFFmpeg({
-      log: true
-    })
-    await this.ffmpeg.load()
-    this.ffmpeg.FS('writeFile', WEBM_FILE_NAME, srcVideoFile)
-    this.ffmpeg.setProgress(progress => {
-      let ratio = progress.ratio
-      if ('time' in progress) {
-        const p = progress as { time: number; ratio: number }
-        ratio = p.time / this.duration
-        if (ratio < 0) return 0
-      }
-      this.ffmpegProgress = ratio
-      this.onProgress(ratio)
-    })
-    await this.ffmpeg.run('-i', WEBM_FILE_NAME, OUTPUT_FILE_NAME)
+    await this.initFFmpeg()
+    // 将ccapture捕获数据写入内存文件MEMFS中
+    this.writeFile(WEBM_FILE_NAME, srcVideoFile)
+    this.time = 0
+    this.isEncoding = true
+    this.i = 0
+    this.ffmpegProgress = 0
+    await this.writeAssets()
+    await this.runMainEncode()
+    this.unlinkAssets()
   }
 
-  // private async initFFmpeg() {
+  // async encode(srcVideoFile: Uint8Array) {
   //   this.ffmpeg = FFmpeg.createFFmpeg({
-  //     log: true,
-  //     corePath: 'assets/js/ffmpeg/ffmpeg-core.js',
-  //     logger: v => this.log(v)
+  //     log: true
   //   })
   //   await this.ffmpeg.load()
+  //   this.ffmpeg.FS('writeFile', WEBM_FILE_NAME, srcVideoFile)
+  //   this.ffmpeg.setProgress(progress => {
+  //     let ratio = progress.ratio
+  //     if ('time' in progress) {
+  //       const p = progress as { time: number; ratio: number }
+  //       ratio = p.time / this.duration
+  //       if (ratio < 0) return 0
+  //     }
+  //     this.ffmpegProgress = ratio
+  //     this.onProgress(ratio)
+  //   })
+  //   await this.ffmpeg.run('-i', WEBM_FILE_NAME, OUTPUT_FILE_NAME)
   // }
 
-  /* // 把video和audio资产文件数据unit8array写入缓存区
+  private async initFFmpeg() {
+    this.ffmpeg = FFmpeg.createFFmpeg({
+      log: true
+      // corePath: 'assets/js/ffmpeg/ffmpeg-core.js'
+      // logger: v => this.log(v)
+    })
+    await this.ffmpeg.load()
+  }
+
+  // 把video和audio资产文件数据unit8array写入缓存区
   private async writeAssets() {
     if (!this.ffmpeg) return
-    const length = this.strips.filter(s => {
-      return (s instanceof VideoStrip && s.videoAsset) || (s instanceof AudioStrip && s.asset)
-    }).length
-    let progressCount = 1
+    // const length = this.strips.filter(s => {
+    //   return (s instanceof VideoStrip && s.videoAsset) || (s instanceof AudioStrip && s.asset)
+    // }).length
+    // let progressCount = 1
     for (let i = 0; i < this.strips.length; i++) {
       const strip = this.strips[i]
       // 如果strip为videoStrip且其存在资产asset
@@ -151,7 +153,7 @@ export default class Encoder {
           ...['-y', '-i', fileName, '-ss', `${strip.videoOffset}`, '-t', strip.length.toString(), stripFileName]
         )
         this.removeFile(fileName)
-        this.onProgressPreparationAssets(progressCount++ / length)
+        // this.onProgressPreparationAssets(progressCount++ / length)
       } else if (strip instanceof AudioStrip && strip.asset) {
         const fileName = strip.asset.id + getExt(strip.asset.name)
         const fileData = await FFmpeg.fetchFile(strip.asset.path)
@@ -159,7 +161,7 @@ export default class Encoder {
         const stripFileName = strip.id + getExt(strip.asset.name)
         await this.ffmpeg.run(...['-y', '-i', fileName, '-t', strip.length.toString(), stripFileName])
         this.removeFile(fileName)
-        this.onProgressPreparationAssets(progressCount++ / length)
+        // this.onProgressPreparationAssets(progressCount++ / length)
       }
     }
   }
@@ -256,7 +258,7 @@ export default class Encoder {
       }
     }
     this.removeFile(WEBM_FILE_NAME)
-  } */
+  }
 
   downloadOutput() {
     if (!this.ffmpeg) return
