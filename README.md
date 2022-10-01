@@ -1,11 +1,35 @@
-# Vue 3 + Typescript + Vite
+# BUPT YI
+这个项目是我的毕业设计项目，一个具有基本视频剪辑功能的网站
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Demo
+[网页链接](https://buptyi.xyz)
 
-## Recommended IDE Setup
+![首页截图](https://buptyi.xyz:5000/video.png)
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-## Type Support For `.vue` Imports in TS
+## 🚀 Features
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+- 🎪 基于 **vue3** 框架开发
+- ⚡ 基于 **vite** 开发，获取更快速的启动速度
+- 🦾 完全使用 **typescript** 提供完备的代码类型检查
+- 🔋 使用**pinia** 提供状态管理服务，极大地简化了组件间通信
+
+## 📦 Install
+```bash
+pnpm install
+```
+
+## 🦄  serve
+```bash
+pnpm run dev
+```
+
+## 🧱  build
+```bash
+pnpm run build
+```
+
+## 📄 License
+
+**MIT License** © 2022-PRESENT [baoruirui](https://github.com/BRR-bupt)
+
