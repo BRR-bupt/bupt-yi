@@ -2,9 +2,9 @@
 这个项目是我的毕业设计项目，一个具有基本视频剪辑功能的网站
 
 ## Demo
-[网页链接](https://buptyi.xyz)
+[网页链接](https://buptyi.netlify.app/)
 
-![首页截图](https://buptyi.xyz:5000/video.png)
+![首页截图](https://brrblog.netlify.app/assets/video-editor.dc454cde.png)
 
 
 ## 🚀 Features
